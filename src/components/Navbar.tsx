@@ -1,7 +1,6 @@
 'use client';
 
 import { useFilters } from '@/context/FilterContext';
-import { NavbarProps } from '@/types/navbar';
 
 export default function Navbar() {
   const { categories, category, setCategory, sort, setSort, priceRange, setPriceRange } = useFilters();
