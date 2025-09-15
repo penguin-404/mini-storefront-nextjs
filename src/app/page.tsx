@@ -1,56 +1,58 @@
 'use client';
 
-import { useEffect, useState } from "react";
-import { getProducts } from "@/lib/api";
-import { Product } from "@/types/product";
+import { useMemo, useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
 import Pagination from "@/components/Pagination";
-import { useProductFilters } from "@/hooks/useProductFilters";
+import { useFilters } from "@/context/FilterContext";
 
 const ITEMS_PER_PAGE = 8;
 
 export default function CataloguePage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState<string[]>([]);
+  const { products, categories, loading, category, setCategory, priceRange, setPriceRange, sort, setSort, search } = useFilters();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, Infinity]);
-  const [sort, setSort] = useState<"" | "low" | "high">("");
+  const filteredProducts = useMemo(() => {
+    let current = [...products];
+
+    if (search) {
+      current = current.filter((product) =>
+        product.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    
+    if (category && category !== "All") {
+      current = current.filter((product) => product.category === category);
+    }
+    
+    const [min, max] = priceRange;
+    current = current.filter((product) => {
+        const productPrice = product.price;
+        return productPrice >= min && productPrice <= max;
+    });
+
+    if (sort === "low") {
+      current.sort((a, b) => a.price - b.price);
+    } else if (sort === "high") {
+      current.sort((a, b) => b.price - a.price);
+    }
+    return current;
+  }, [products, search, category, sort, priceRange]);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getProducts();
-        setProducts(data);
-        const uniqueCategories = Array.from(new Set(data.map((p) => p.category)));
-        setCategories(["All", ...uniqueCategories]);
-      } catch (err) {
-        console.error("Error fetching products:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
+    setCurrentPage(1);
+  }, [search, category, priceRange, sort]);
 
-  const filtered = useProductFilters(products, search, category, sort, priceRange);
-
-  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentItems = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentItems = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-  if (loading) return <p className="p-6">Loading...</p>;
+  if (loading) return <p className="p-10">Loading...</p>;
 
   return (
-    <main className="p-6">
+    <main className="p-10">
       <Navbar
         categories={categories}
-        search={search}
-        setSearch={setSearch}
         category={category}
         setCategory={setCategory}
         sort={sort}

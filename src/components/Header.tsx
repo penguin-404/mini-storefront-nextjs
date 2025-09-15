@@ -3,15 +3,29 @@
 import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useFilters } from '@/context/FilterContext';
 
 export const Header = () => {
   const { totalItems } = useCart();
+  const { search, setSearch } = useFilters();
+
   return (
-    <header className="bg-white shadow-md p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold text-gray-800">
-          MyStore
+    <header className="shadow-md">
+      <div className="container mx-auto px-6 py-5 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+        <Link href="/" className="text-2xl font-bold text-shadow-orange-800">
+          Storify
         </Link>
+        
+        <div className="flex-1 max-w-lg w-full md:w-auto">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+          />
+        </div>
+
         <nav>
           <Link href="/cart" className="relative text-gray-600 hover:text-gray-800 transition-colors">
             <ShoppingCart size={24} />

@@ -23,7 +23,7 @@ export default function CartPage() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold text-center mb-8">Shopping Cart</h1>
+      <h1 className="text-3xl font-bold text-center mb-8 mt-6">Shopping Cart</h1>
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="divide-y divide-gray-200">
           {cartItems.map(item => (

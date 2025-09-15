@@ -60,16 +60,16 @@ export default function ProductDetailPage() {
           <h1 className="text-2xl font-bold">{product.title}</h1>
           <p className="text-gray-700">{product.description}</p>
           <div className="flex items-center gap-6 mt-4">
-            <span className="text-xl font-semibold text-green-600">
+            <span className="text-xl font-semibold text-green-800">
               ${product.price}
             </span>
             <span className="px-3 py-1 bg-gray-200 rounded text-sm">
-              {product.category}
+              {product.category.toUpperCase()}
             </span>
           </div>
 
           <button
-            className="mt-6 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+            className="mt-6 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={product.stock === 0}
             onClick={() => addToCart(product)}
           >

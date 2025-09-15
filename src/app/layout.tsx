@@ -3,11 +3,12 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { CartProvider } from '@/context/CartContext';
 import { Header } from '@/components/Header';
+import { FilterProvider } from '@/context/FilterContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Mini Storefront',
+  title: 'Storify - Your Online Shop',
   description: 'A simple e-commerce application built with Next.js and Tailwind CSS',
 };
 
@@ -20,10 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <CartProvider>
-          <Header />
-          <main className="container mx-auto px-4 py-8">
-            {children}
-          </main>
+          <FilterProvider>
+            <Header />
+            <main className="container mx-auto px-2">
+              {children}
+            </main>
+          </FilterProvider>
         </CartProvider>
       </body>
     </html>
