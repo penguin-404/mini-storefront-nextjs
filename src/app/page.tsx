@@ -47,19 +47,11 @@ export default function CataloguePage() {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentItems = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-  if (loading) return <p className="p-10">Loading...</p>;
+  if (loading) return <p className="p-6">Loading...</p>;
 
   return (
-    <main className="p-10">
-      <Navbar
-        categories={categories}
-        category={category}
-        setCategory={setCategory}
-        sort={sort}
-        setSort={setSort}
-        priceRange={priceRange}
-        setPriceRange={setPriceRange}
-      />
+    <main className="p-6">
+      <Navbar />
 
       {currentItems.length === 0 ? (
         <p className="text-center text-lg text-gray-500 mt-8">No products found.</p>

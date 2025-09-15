@@ -22,16 +22,16 @@ export default function Navbar() {
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
-        className="w-full md:w-62 px-3 py-2 border rounded-md"
+        className="w-full md:w-56 px-3 py-2 border rounded-md"
       >
         {categories.map((cat) => (
           <option key={cat} value={cat}>
-            {cat.toUpperCase()}
-          </option>
-        ))}
-      </select>
-      
-      <div className="flex gap-8 w-fit md:w-auto">
+                {cat.toUpperCase()}
+              </option>
+            ))}
+          </select>
+          
+      <div className="flex gap-2 w-full md:w-auto">
         <input
           type="number"
           placeholder="Min"
