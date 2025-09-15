@@ -4,10 +4,21 @@ import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useFilters } from '@/context/FilterContext';
+import { useState , useEffect } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 
 export const Header = () => {
   const { totalItems } = useCart();
   const { search, setSearch } = useFilters();
+
+  const [inputValue, setInputValue] = useState(search);
+
+  const debouncedSearchTerm = useDebounce(inputValue, 500); // 500ms delay
+
+  useEffect(() => {
+    setSearch(debouncedSearchTerm);
+  }, [debouncedSearchTerm, setSearch]);
+
 
   return (
     <header className="shadow-md">
