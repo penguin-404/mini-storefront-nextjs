@@ -31,8 +31,8 @@ export const Header = () => {
           <input
             type="text"
             placeholder="Search products..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
             className="w-full px-3 py-2 border rounded-md"
           />
         </div>
