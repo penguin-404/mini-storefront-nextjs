@@ -7,7 +7,6 @@ import { Product } from "@/types/product";
 import ProductCard from "@/components/ProductCard";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default function ProductDetailPage() {

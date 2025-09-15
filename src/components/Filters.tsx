@@ -25,8 +25,8 @@ export default function Filters({
           className="border px-3 py-2 rounded"
         >
           <option value="">All Categories</option>
-          <option value="men's clothing">Men's Clothing</option>
-          <option value="women's clothing">Women's Clothing</option>
+          <option value="men's clothing">Men&apos;s Clothing</option>
+          <option value="women's clothing">Women&apos;s Clothing</option>
           <option value="jewelery">Jewelery</option>
           <option value="electronics">Electronics</option>
         </select>
@@ -37,8 +37,8 @@ export default function Filters({
           className="border px-3 py-2 rounded"
         >
           <option value="">Sort by Price</option>
-          <option value="low">Low → High</option>
-          <option value="high">High → Low</option>
+          <option value="low">Low to High</option>
+          <option value="high">High to Low</option>
         </select>
       </div>
     </div>
